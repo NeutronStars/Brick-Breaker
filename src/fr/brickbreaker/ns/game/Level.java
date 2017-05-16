@@ -68,8 +68,6 @@ public abstract class Level {
 		blocks.add(block);
 	}
 	
-	public abstract Level newLevel();
-	
 	public void update(){
 		Sound.LEVEL_SOUND.start();
 		if(blocks.isEmpty()){
@@ -116,19 +114,17 @@ public abstract class Level {
 		platform.render(gdd);
 		
 		if(nbBalls > -1 && !blocks.isEmpty()){
-			gdd.setFont(new Font("Arial", Font.ITALIC, 20));
-			gdd.setColor(new Color(0, 255, 0));
-			gdd.drawString("Scores : "+getScore(), 40, 430);
-			gdd.setFont(new Font("Arial", Font.ITALIC, 20));
-			gdd.setColor(new Color(0, 255, 255));
-			gdd.drawString("Ball(s) : "+nbBalls, 590, 430);
+			renderInfo(gdd, "Ball(s) : "+nbBalls, Font.ITALIC, Color.CYAN, 20, 590, 430);
+			renderInfo(gdd, "Scores : "+getScore(), Font.ITALIC, Color.green, 20, 40, 430);
 		}else{
-			gdd.setFont(new Font("Arial", Font.BOLD, 40));
-			gdd.setColor(new Color(200, 0, 200));
-			gdd.drawString("GAME OVER", 225, 200);
-			gdd.setFont(new Font("Arial", Font.ITALIC, 20));
-			gdd.setColor(new Color(0, 255, 0));
-			gdd.drawString("Scores : "+getScore(), 290, 220);
+			renderInfo(gdd, "GAME OVER", Font.BOLD, Color.MAGENTA, 40, 225, 200);
+			renderInfo(gdd, "Scores : "+getScore(), Font.ITALIC, Color.green, 20, 290, 220);
 		}
+	}
+	
+	private void renderInfo(Graphics2D gdd, String text, int font, Color color, int size, int x, int y){
+		gdd.setFont(new Font("Arial", font, size));
+		gdd.setColor(color);
+		gdd.drawString(text, x, y);
 	}
 }

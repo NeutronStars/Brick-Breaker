@@ -77,18 +77,18 @@ public abstract class Block {
 	}
 	
 	public void action(Ball ball, Level level){
-		if(ball.getHitbox().intersects(getLeft()) || ball.getHitbox().intersects(getRight())){
-			ball.setVelocity(new Vector2f(-ball.getVelocity().getX(), ball.getVelocity().getY()));
-			level.addScore(getType().getScores()*getType().getMultUp());
-		}else if(ball.getHitbox().intersects(getUp()) || ball.getHitbox().intersects(getDown())){
-			ball.setVelocity(new Vector2f(ball.getVelocity().getX(), -ball.getVelocity().getY()));
-			level.addScore(getType().getScores()*getType().getMultSide());
-		}else{
-			ball.setVelocity(new Vector2f(-ball.getVelocity().getX(), -ball.getVelocity().getY()));
-			level.addScore(getType().getScores()*getType().getMultCorner());
-		}
+		if(ball.getHitbox().intersects(getLeft()) || ball.getHitbox().intersects(getRight())) 
+			actionBall(ball, level, -ball.getVelocity().getX(), ball.getVelocity().getY(), getType().getScores()*getType().getMultUp());
+		else if(ball.getHitbox().intersects(getUp()) || ball.getHitbox().intersects(getDown())) 
+			actionBall(ball, level, ball.getVelocity().getX(), -ball.getVelocity().getY(), getType().getScores()*getType().getMultSide());
+		else actionBall(ball, level, -ball.getVelocity().getX(), -ball.getVelocity().getY(), getType().getScores()*getType().getMultCorner());
 		setDestroy(true);
 		Sound.HIT_SOUND.start();
+	}
+	
+	private void actionBall(Ball ball, Level level, float x, float y, int points){
+		ball.setVelocity(new Vector2f(x, y));
+		level.addScore(points);
 	}
 	
 	public void render(Graphics2D gdd){

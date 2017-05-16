@@ -25,7 +25,7 @@ public class Sound implements Runnable{
 		path = pPath;
 	}
 	
-	public void start(){
+	public synchronized void start(){
 		if(!running){
 			running = true;
 			thread = new Thread(this);

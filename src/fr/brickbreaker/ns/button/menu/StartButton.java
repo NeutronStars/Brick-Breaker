@@ -30,9 +30,13 @@ public class StartButton extends Button{
 
 	@Override
 	public void onLeftClick() {
-		BrickBreaker.getGame().setLevel(LevelType.getLevel(BrickBreaker.getGame().getLvlId()));
-		BrickBreaker.getGame().setState(GameState.LEVEL);
-		Sound.MENU_SOUND.stop();
+		try{
+			BrickBreaker.getGame().setLevel(LevelType.getLevel(BrickBreaker.getGame().getLvlId()));
+			BrickBreaker.getGame().setState(GameState.LEVEL);
+			Sound.MENU_SOUND.stop();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override

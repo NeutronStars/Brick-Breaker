@@ -16,10 +16,4 @@ public class DefaultLevel extends Level {
 			}
 		}
 	}
-
-	@Override
-	public Level newLevel() {
-		return new DefaultLevel();
-	}
-
 }
